@@ -27,6 +27,7 @@ export default {
                 })
                 .then(() => {
                     this.error = "";
+                    localStorage.removeItem('logout')
                     this.$router.push({ name: "post-list" });
                 })
                 .catch(err => {

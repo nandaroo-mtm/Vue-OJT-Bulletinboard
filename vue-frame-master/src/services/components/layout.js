@@ -8,7 +8,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["isLoggedIn", "userType", "userName"]),
+        ...mapGetters(["isLoggedIn", "userType", "userName","userID"]),
     },
     methods: {
         /**
@@ -24,6 +24,11 @@ export default {
                 .catch((err) => {
                     console.log(err);
                 });
+               /*  localStorage.clear();
+                localStorage.setItem('logout',true)
+                this.$router.push('/login'); */
+
+
         },
         /**
          * This is to route profile page.

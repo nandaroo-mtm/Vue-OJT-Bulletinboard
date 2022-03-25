@@ -14,7 +14,6 @@
             </div>
         </v-card-text>
         <v-card-actions>
-
             <div class="login-action">
                 <v-spacer></v-spacer>
                 <v-btn type="submit" :disabled="!valid" large color="primary">Login</v-btn>

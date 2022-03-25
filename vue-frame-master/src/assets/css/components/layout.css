@@ -1,6 +1,10 @@
 .route-link {
-    color: white !important;
-    padding: 0px 5px;
+    color: #ffffff;
+    padding: 0px 10px;
+    text-decoration: none;
+}
+.route-link:hover{
+    color:#023323;
 }
 
 .route-links {

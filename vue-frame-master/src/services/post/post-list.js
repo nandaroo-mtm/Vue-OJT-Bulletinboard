@@ -2,6 +2,7 @@ import { mapGetters } from "vuex";
 export default {
     data() {
         return {
+            keyword: '',
             postInfo: null,
             dialogTitle: "",
             dialog: false,
@@ -41,9 +42,9 @@ export default {
             } else {
                 return this.headerList;
             }
-        },
+        }
     },
-    mounted() {
+    created() {
         this.$axios
             .get("/posts")
             .then((response) => {
@@ -62,11 +63,25 @@ export default {
         filterPosts() {
             this.showList = this.postList.filter((post) => {
                 return (
-                    post.title.includes(this.keyword) ||
-                    post.description.includes(this.keyword) ||
-                    post.created_user.includes(this.keyword)
+                    post.title.toLowerCase().includes(this.keyword.toLowerCase()) ||
+                    post.description.includes(this.keyword.toLowerCase())
                 );
             });
         },
+        deletePost(id) {
+            if (confirm('Are you sure you want to delete this item?')) {
+                this.$axios
+                    .delete("/posts/" + id + "/delete")
+                    .then((response) => {
+                        console.log(response)
+                        this.$router.go()
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                    
+            }
+
+        }
     },
 };
