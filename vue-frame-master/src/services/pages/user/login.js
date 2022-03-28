@@ -31,7 +31,7 @@ export default {
                     this.$router.push({ name: "post-list" });
                 })
                 .catch(err => {
-                    this.error = err.response.data.errors.message;
+                    //this.error = err.response.data.errors.message;
                     console.log(err);
                 });
         }

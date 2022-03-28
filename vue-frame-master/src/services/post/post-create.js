@@ -10,9 +10,9 @@ export default {
             userRole: '',
             titleRules: [
                 value => !!value || "The title field is required.",
-                value => value.length <=50  || "The title field may not be greater than 50 characters!"
+                value => value.length <= 50 || "The title field may not be greater than 50 characters!"
             ],
-            descriptionRules:[
+            descriptionRules: [
                 value => !!value || "The description field is required."
             ],
         }
@@ -35,6 +35,8 @@ export default {
                 description: this.description,
                 created_user_id: this.userId,
                 updated_user_id: this.userId,
+                deleted_user_id: null,
+                deleted_at: null,
                 status: 1,
             })
                 .then((response) => {

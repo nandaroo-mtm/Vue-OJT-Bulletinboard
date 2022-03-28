@@ -35,7 +35,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["isLoggedIn"]),
+        ...mapGetters(["isLoggedIn", "userId"]),
         headers() {
             if (!this.isLoggedIn) {
                 return this.headerList.slice(0, this.headerList.length - 1);
@@ -49,7 +49,11 @@ export default {
             .get("/posts")
             .then((response) => {
                 this.postList = response.data;
-                this.showList = this.postList;
+                this.showList = this.postList.filter((post) => {
+                    return (
+                        post.deleted_user_id === null && post.deleted_at === null
+                    )
+                })
             })
             .catch((err) => {
                 console.log(err);
@@ -71,7 +75,10 @@ export default {
         deletePost(id) {
             if (confirm('Are you sure you want to delete this item?')) {
                 this.$axios
-                    .delete("/posts/" + id + "/delete")
+                    .patch("/posts/" + id + "/edit", {
+                        "deleted_user_id": this.userId,
+                        "deleted_at": new Date().getTime(),
+                    })
                     .then((response) => {
                         console.log(response)
                         this.$router.go()
@@ -79,7 +86,7 @@ export default {
                     .catch((err) => {
                         console.log(err);
                     });
-                    
+
             }
 
         }

@@ -19,7 +19,13 @@
       </v-card-text>
       <v-card-actions>
         <div class="footer">
-          <v-btn type="submit" large class="primary white--text" :disabled="!valid">Comfirm</v-btn>
+          <v-btn
+            type="submit"
+            large
+            class="primary white--text"
+            :disabled="!valid"
+            >Comfirm</v-btn
+          >
           <v-dialog v-model="dialog" persistent max-width="600px">
             <v-card>
               <v-card-title class="create-post-title primary white--text">

@@ -8,7 +8,7 @@
       <div class="text-h4 text--primary">
         {{ post.title }}
       </div>
-      <p>By <span class="lime--text">{{ userName }}</span></p>
+      <p>By <span class="lime--text">{{ createdUser }}</span>, {{ post.created_at }}</p>
       <div class="text--primary">
         {{ post.description }}
       </div>

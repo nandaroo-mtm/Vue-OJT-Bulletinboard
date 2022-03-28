@@ -19,7 +19,7 @@
             @click="filterUsers()"
             >Filter</v-btn
           >
-          <router-link to="/post/create" class="mt-5"
+          <router-link to="/user/create" class="mt-5" v-if="userType === 0"
             ><v-btn class="post-list-btn mr-4" color="primary"
               >Create</v-btn
             ></router-link
@@ -35,7 +35,7 @@
             ><a v-if="item.name">{{ item.name }}</a></router-link
           >
         </template>
-        <template v-slot:[`item.operation`]="{ item }">
+        <template v-slot:[`item.operation`]="{ item }" v-if="userType === 0">
           <v-row>
             <div class="operation-btn">
               <router-link
@@ -49,7 +49,7 @@
               <v-btn
                 color="error"
                 class="post-list-btn"
-                @click="deletePost(item.id)"
+                @click="deleteUser(item.id)"
                 >Delete</v-btn
               >
             </div>

@@ -8,6 +8,7 @@ import PostDetail from "../pages/post/PostDetail";
 import PostEdit from "../pages/post/PostEdit";
 import UserList from "../pages/user/UserList";
 import UserDetail from "../pages/user/UserDetail";
+import UserCreate from "../pages/user/UserCreate";
 import store from "../store";/* 
 import {mapGetters} from 'vuex'; */
 
@@ -18,6 +19,13 @@ const routes = [
         path: "/login",
         name: "login",
         component: Login,
+        beforeEnter: (to, from, next) => {
+            const loggedIn = store.getters.isLoggedIn;
+            if (loggedIn && !localStorage.getItem('logout')) {
+                return next(from.fullPath)
+            }
+            next();
+        }
     },
     {
         path: "/post/list",
@@ -32,13 +40,6 @@ const routes = [
         path: "/post/create",
         name: "post-create",
         component: PostCreate,
-        beforeEnter: (to, from, next) => {
-            if(localStorage.getItem('vuex')){
-                next();
-            } else {
-                next("/login");
-            }
-          }
     },
     {
         path: "/post/:postId",
@@ -56,10 +57,16 @@ const routes = [
         component: UserList,
     },
     {
+        path: "/user/create",
+        name: "user-create",
+        component: UserCreate,
+    },
+    {
         path: "/user/:userId",
         name: "user-detail",
         component: UserDetail,
     },
+    
 ];
 
 const router = new VueRouter({
@@ -74,9 +81,6 @@ router.beforeEach((to, from, next) => {
     const loggedIn = store.getters.isLoggedIn;
     if (!loggedIn && to.name != "login") {
         return next("/login");
-    }
-    if(loggedIn && to.name == "login" && !localStorage.getItem('logout')){
-        return next(from.fullPath)
     }
     next();
 });

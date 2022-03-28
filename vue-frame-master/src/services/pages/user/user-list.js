@@ -2,7 +2,7 @@ import { mapGetters } from "vuex";
 export default {
     data() {
         return {
-            keyword:'',
+            keyword: '',
             postInfo: null,
             dialogTitle: "",
             dialog: false,
@@ -36,21 +36,30 @@ export default {
                 {
                     text: "Created User",
                     value: "created_user_id",
-                },
+                }/* ,
                 {
                     text: "Operation",
                     value: "operation",
-                },
+                }, */
             ],
             userList: [],
             showList: [],
         };
     },
     computed: {
-        ...mapGetters(["isLoggedIn"]),
+        ...mapGetters(["isLoggedIn", "userId","userType"]),
         headers() {
-            if (!this.isLoggedIn) {
+            /* if (!this.isLoggedIn) {
                 return this.headerList.slice(0, this.headerList.length - 1);
+            } else {
+                return this.headerList;
+            } */
+            if(this.userType === 0){
+                this.headerList.push({
+                    text: "Operation",
+                    value: "operation",
+                });
+                return this.headerList;
             } else {
                 return this.headerList;
             }
@@ -58,23 +67,23 @@ export default {
     },
     created() {
         this.$axios
-            .get("/users")
+            .get(`http://localhost:8000/api/users/`)
             .then((response) => {
                 this.userList = response.data;
-                
+
                 var i = 0
-                var dob,dateString,currentTime,month,day,year,date;
+                var unixTime, date;
                 for (i = 0; i < this.userList.length; i++) {
-                    dob = this.userList[i].dob;
-                    dateString = `Date(${dob})`.substr(6);
-                    currentTime = new Date(parseInt(dateString));
-                    month = currentTime.getMonth() + 1;
-                    day = currentTime.getDate();
-                    year = currentTime.getFullYear();
-                    date = day + "/" + month + "/" + year;
-                    this.userList[i].dob = date;
+                    unixTime = this.userList[i].dob;
+                    date = new Date(unixTime);
+                    this.userList[i].dob = date.toLocaleDateString();
                 }
-                this.showList = this.userList;
+
+                this.showList = this.userList.filter((user) => {
+                    return (
+                        user.deleted_user_id === null && user.deleted_at === null
+                    )
+                });
             })
             .catch((err) => {
                 console.log(err);
@@ -85,21 +94,25 @@ export default {
          * This is to filter posts of datatable.
          * @returns void
          */
-         filterUsers() {
-             console.log(this.name);
+        filterUsers() {
+            console.log(this.name);
             this.showList = this.userList.filter((user) => {
                 return (
-                    user.name.toLowerCase().includes(this.keyword.toLowerCase()) ||
-                    user.email.toLowerCase().includes(this.keyword.toLowerCase()) ||
-                    user.address.toLowerCase().includes(this.keyword.toLowerCase())
+                    (user.name.toLowerCase().includes(this.keyword.toLowerCase()) ||
+                        user.email.toLowerCase().includes(this.keyword.toLowerCase()) ||
+                        user.address.toLowerCase().includes(this.keyword.toLowerCase())) &&
+                    user.deleted_user_id === null && user.deleted_at === null
                 );
             });
             console.log(this.showList)
         },
-        deletePost(id) {
-            if (confirm('Are you sure you want to delete this item?')) {
+        deleteUser(id) {
+            if (confirm('Are you sure you want to delete this user?')) {
                 this.$axios
-                    .delete("/posts/" + id + "/delete")
+                    .patch("/users/" + id + "/edit", {
+                        "deleted_user_id": this.userId,
+                        "deleted_at": new Date().getTime(),
+                    })
                     .then((response) => {
                         console.log(response)
                         this.$router.go()
