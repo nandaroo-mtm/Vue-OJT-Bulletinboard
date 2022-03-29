@@ -24,6 +24,7 @@ export default {
                         for (i = 0; i < arr.length; i++) {
                             if (arr[i].id === this.post.created_user_id) {
                                 this.createdUser = arr[i].name;
+                                break;
                             }
                         }
                     })
@@ -31,8 +32,5 @@ export default {
                         console.log(err);
                     });
             })
-
-
-
     }
 }

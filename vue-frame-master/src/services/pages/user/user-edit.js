@@ -1,6 +1,4 @@
 import { mapGetters } from "vuex";
-//import http from "../../../http-common"
-
 export default {
     data() {
         return {
@@ -10,7 +8,6 @@ export default {
             dob: '',
             type: '',
             address: '',
-            profile: '',
             dialog: false,
             nameRules: [
                 value => !!value || 'Please fill user name!',
@@ -49,46 +46,49 @@ export default {
     computed: {
         ...mapGetters(["userId"]),
     },
+    created() {
+        this.$axios.get(`http://localhost:8000/api/users/${this.$route.params.userId}/show`)
+            .then((response) => {
+                var user = response.data;
+                var d = new Date(user.dob * 1000)
+                var month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                if (month.length < 2)
+                    month = '0' + month;
+                if (day.length < 2)
+                    day = '0' + day;
+                this.name=user.name,
+                this.email=user.email,
+                this.phone=user.phone,
+                this.address=user.address,
+                this.type=user.type,
+                this.dob = [year, month, day].join('-');
+
+            })
+    },
     methods: {
         confirm() {
-            this.dialog = true;
+            this.dialog = true
         },
-        userCreate() {
-            console.log(this.profile)
-            let formData = new FormData();
-            formData.append("file", this.profile);
-            formData.append("email", this.email);
-            formData.append("password", this.password);
-
-            /* return http.post("/users/create", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                },
-            }).catch(err=>{
+        userEdit(){
+            this.$axios.patch(`http://localhost:8000/api/users/${this.$route.params.userId}/edit`,{
+                name: this.name,
+                email: this.email,
+                address: this.address,
+                phone: this.phone,
+                type: this.type,
+                dob: Math.floor(new Date(this.dob).getTime() / 1000),
+                created_user_id: 1,
+                updated_user_id: this.userId,
+            })
+            .then(()=> {
+                this.$router.push('/user/list')
+            })
+            .catch((err)=>{
                 console.log(err)
-            }) */
-                this.$axios.post(`http://localhost:8000/api/users`, {
-                    name: this.name,
-                    email: this.email,
-                    address: this.address,
-                    phone: this.phone,
-                    type: this.type,
-                    password: this.password,
-                    profile:this.profile,
-                    dob: Math.floor(new Date(this.dob).getTime() / 1000),
-                    created_user_id: this.userId,
-                    updated_user_id: this.userId,
-                    deleted_user_id: null,
-                    deleted_at: null,
-                })
-                    .then(() => {
-                        this.dialog = false
-                        this.$router.push('/user/list')
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-            },
-
+            })
+        }
     }
-    }
+}

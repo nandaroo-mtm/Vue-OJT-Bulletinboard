@@ -47,14 +47,14 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["isLoggedIn", "userId","userType"]),
+        ...mapGetters(["isLoggedIn", "userId", "userType"]),
         headers() {
             /* if (!this.isLoggedIn) {
                 return this.headerList.slice(0, this.headerList.length - 1);
             } else {
                 return this.headerList;
             } */
-            if(this.userType === 0){
+            if (this.userType == 0) {
                 this.headerList.push({
                     text: "Operation",
                     value: "operation",
@@ -75,7 +75,7 @@ export default {
                 var unixTime, date;
                 for (i = 0; i < this.userList.length; i++) {
                     unixTime = this.userList[i].dob;
-                    date = new Date(unixTime);
+                    date = new Date(unixTime * 1000);
                     this.userList[i].dob = date.toLocaleDateString();
                 }
 
@@ -95,7 +95,6 @@ export default {
          * @returns void
          */
         filterUsers() {
-            console.log(this.name);
             this.showList = this.userList.filter((user) => {
                 return (
                     (user.name.toLowerCase().includes(this.keyword.toLowerCase()) ||
@@ -104,7 +103,6 @@ export default {
                     user.deleted_user_id === null && user.deleted_at === null
                 );
             });
-            console.log(this.showList)
         },
         deleteUser(id) {
             if (confirm('Are you sure you want to delete this user?')) {

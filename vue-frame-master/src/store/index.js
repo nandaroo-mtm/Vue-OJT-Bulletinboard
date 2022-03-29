@@ -18,21 +18,17 @@ export default new Vuex.Store({
             } else {
                 state.user = userData.user;
                 state.user.access_token = userData.accessToken
-            }
-            
+            }            
         },
     },
     actions: {
         login({ commit }, credentials) {
             return axios.post("/login", credentials).then(({ data }) => {
                 commit("setUserData", data);
-                console.log(data)
             });
         },
-        logout({ commit }/* , credentials */) {
-            /* return axios.post("/logout", credentials).then(() => { */
+        logout({ commit }) {
                 commit("setUserData", null);
-           /*  }); */
         },
         createPost(context, payload) {
             return axios

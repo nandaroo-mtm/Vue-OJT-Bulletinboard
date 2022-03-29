@@ -39,8 +39,8 @@
         <v-row>
           <v-col cols="4"> Account Type </v-col>
           <v-col>
-            <span v-if="user.type === 0">Admin</span>
-            <span v-else-if="user.type === 1">User</span>
+            <span v-if="user.type == 0">Admin</span>
+            <span v-else-if="user.type == 1">User</span>
           </v-col>
         </v-row>
       </div>

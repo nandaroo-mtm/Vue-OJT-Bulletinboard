@@ -19,7 +19,7 @@
             @click="filterUsers()"
             >Filter</v-btn
           >
-          <router-link to="/user/create" class="mt-5" v-if="userType === 0"
+          <router-link to="/user/create" class="mt-5" v-if="userType == 0"
             ><v-btn class="post-list-btn mr-4" color="primary"
               >Create</v-btn
             ></router-link
@@ -35,11 +35,11 @@
             ><a v-if="item.name">{{ item.name }}</a></router-link
           >
         </template>
-        <template v-slot:[`item.operation`]="{ item }" v-if="userType === 0">
+        <template v-slot:[`item.operation`]="{ item }">
           <v-row>
             <div class="operation-btn">
               <router-link
-                :to="{ name: 'post-edit', params: { postId: item.id } }"
+                :to="{ name: 'user-edit', params: { userId: item.id } }"
                 ><v-btn color="primary" class="post-list-btn"
                   >Edit</v-btn
                 ></router-link

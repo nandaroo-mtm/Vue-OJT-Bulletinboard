@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto mt-5" max-width="500">
     <v-card-title class="create-post-title primary white--text">
-      <span class="title font-weight-light">Create New User</span>
+      <span class="title font-weight-light">User Edit</span>
     </v-card-title>
     <v-form ref="form" v-model="valid" class="mt-5" @submit.prevent="confirm()">
       <v-card-text class="px-10">
@@ -64,27 +64,6 @@
             </template>
           </v-radio>
         </v-radio-group>
-        <v-file-input
-          accept="image/*"
-          label="Profile"
-          v-model="profile"
-          ref="file"
-          @change="selectImage"
-        ></v-file-input>
-        <v-text-field
-          label="Password"
-          required
-          v-model="password"
-          type="password"
-          :rules="passwordRules"
-        ></v-text-field>
-        <v-text-field
-          label="Confirm Password"
-          required
-          v-model="confirmPassword"
-          type="password"
-          :rules="confirmPasswordRules"
-        ></v-text-field>
         <v-textarea required v-model="address" :rules="addressRules">
           <template v-slot:label>
             <div>Address</div>
@@ -104,7 +83,7 @@
           <v-dialog v-model="dialog" persistent max-width="600px">
             <v-card class="mx-auto mt-5" max-width="600">
               <v-card-title class="create-post-title primary white--text">
-                <span class="text-h5">Create User Comfirmation</span>
+                <span class="text-h5">User Edit Comfirmation</span>
               </v-card-title>
               <v-card-text>
                 <div class="pt-5 px-8">
@@ -154,22 +133,24 @@
                   color="blue darken-1"
                   type="submit"
                   class="white--text"
-                  @click="userCreate()"
+                  @click="userEdit()"
                 >
                   Save
                 </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <v-btn type="reset" large>Clear</v-btn>
+          <router-link :to="{ name: 'user-list' }"
+            ><v-btn type="reset" large>Back</v-btn></router-link
+          >
         </div>
       </v-card-actions>
     </v-form>
   </v-card>
 </template>
 
-<script src="../../services/pages/user/user-create.js">
+<script src="../../services/pages/user/user-edit.js">
 </script>
 
-<style scoped src="../../assets/css/pages/post/post-create.css">
+<style scoped  src="../../assets/css/pages/post/post-create.css">
 </style>

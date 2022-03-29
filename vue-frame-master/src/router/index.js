@@ -9,6 +9,7 @@ import PostEdit from "../pages/post/PostEdit";
 import UserList from "../pages/user/UserList";
 import UserDetail from "../pages/user/UserDetail";
 import UserCreate from "../pages/user/UserCreate";
+import UserEdit from "../pages/user/UserEdit";
 import store from "../store";/* 
 import {mapGetters} from 'vuex'; */
 
@@ -66,7 +67,11 @@ const routes = [
         name: "user-detail",
         component: UserDetail,
     },
-    
+    {
+        path: "/user/:userId/edit",
+        name: "user-edit",
+        component: UserEdit,
+    },
 ];
 
 const router = new VueRouter({
