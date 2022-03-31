@@ -22,7 +22,9 @@
                             </template>
                             <v-list>
                                 <v-list-item @click="showProfile()">
-                                    <v-list-item-title>Profile</v-list-item-title>
+                                    <v-list-item-title>
+                                        <router-link :to="{name:'user-profile'}" class="no-link">Profile</router-link>
+                                    </v-list-item-title>
                                 </v-list-item>
                                 <v-list-item @click="logout()">
                                     <v-list-item-title>Logout</v-list-item-title>

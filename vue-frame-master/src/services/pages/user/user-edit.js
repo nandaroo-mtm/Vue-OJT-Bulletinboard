@@ -54,7 +54,6 @@ export default {
                 var month = '' + (d.getMonth() + 1),
                     day = '' + d.getDate(),
                     year = d.getFullYear();
-
                 if (month.length < 2)
                     month = '0' + month;
                 if (day.length < 2)
@@ -84,7 +83,8 @@ export default {
                 updated_user_id: this.userId,
             })
             .then(()=> {
-                this.$router.push('/user/list')
+                //this.$router.push('/user/list')
+                this.$router.go(-1)
             })
             .catch((err)=>{
                 console.log(err)

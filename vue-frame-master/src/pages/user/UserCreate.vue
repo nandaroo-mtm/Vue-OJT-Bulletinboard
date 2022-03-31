@@ -69,7 +69,6 @@
           label="Profile"
           v-model="profile"
           ref="file"
-          @change="selectImage"
         ></v-file-input>
         <v-text-field
           label="Password"

@@ -95,7 +95,7 @@ export default {
          * @returns void
          */
         filterUsers() {
-            this.showList = this.userList.filter((user) => {
+            this.showList = this.showList.filter((user) => {
                 return (
                     (user.name.toLowerCase().includes(this.keyword.toLowerCase()) ||
                         user.email.toLowerCase().includes(this.keyword.toLowerCase()) ||

@@ -140,9 +140,7 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <router-link :to="{ name: 'user-list' }"
-            ><v-btn type="reset" large>Back</v-btn></router-link
-          >
+            <v-btn large @click="$router.go(-1)">Back</v-btn>
         </div>
       </v-card-actions>
     </v-form>

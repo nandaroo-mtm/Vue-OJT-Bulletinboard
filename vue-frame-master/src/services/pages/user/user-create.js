@@ -54,41 +54,37 @@ export default {
             this.dialog = true;
         },
         userCreate() {
-            console.log(this.profile)
             let formData = new FormData();
             formData.append("file", this.profile);
             formData.append("email", this.email);
             formData.append("password", this.password);
-
-            /* return http.post("/users/create", formData, {
+            this.$axios.post(`http://localhost:8000/api/users`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
-                },
-            }).catch(err=>{
-                console.log(err)
-            }) */
-                this.$axios.post(`http://localhost:8000/api/users`, {
-                    name: this.name,
-                    email: this.email,
-                    address: this.address,
-                    phone: this.phone,
-                    type: this.type,
-                    password: this.password,
-                    profile:this.profile,
-                    dob: Math.floor(new Date(this.dob).getTime() / 1000),
-                    created_user_id: this.userId,
-                    updated_user_id: this.userId,
-                    deleted_user_id: null,
-                    deleted_at: null,
+                  }
+            })
+
+           /*  this.$axios.post(`http://localhost:8000/api/users`, {
+                name: this.name,
+                email: this.email,
+                address: this.address,
+                phone: this.phone,
+                type: this.type,
+                password: this.password,
+                dob: Math.floor(new Date(this.dob).getTime() / 1000),
+                created_user_id: this.userId,
+                updated_user_id: this.userId,
+                deleted_user_id: null,
+                deleted_at: null,
+            })
+                .then(() => {
+                    this.dialog = false
+                    this.$router.push('/user/list')
                 })
-                    .then(() => {
-                        this.dialog = false
-                        this.$router.push('/user/list')
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-            },
+                .catch((err) => {
+                    console.log(err);
+                }); */
+        },
 
     }
-    }
+}

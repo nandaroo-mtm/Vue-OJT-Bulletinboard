@@ -10,6 +10,8 @@ import UserList from "../pages/user/UserList";
 import UserDetail from "../pages/user/UserDetail";
 import UserCreate from "../pages/user/UserCreate";
 import UserEdit from "../pages/user/UserEdit";
+import UserProfile from "../pages/user/UserProfile"
+import Password from "../pages/user/Password"
 import store from "../store";/* 
 import {mapGetters} from 'vuex'; */
 
@@ -61,6 +63,16 @@ const routes = [
         path: "/user/create",
         name: "user-create",
         component: UserCreate,
+    },
+    {
+        path: "/user/profile",
+        name: "user-profile",
+        component: UserProfile,
+    },
+    {
+        path: "/user/password",
+        name: "password",
+        component: Password,
     },
     {
         path: "/user/:userId",
