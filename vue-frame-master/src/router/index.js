@@ -6,6 +6,7 @@ import PostList from "../pages/post/PostList";
 import PostCreate from "../pages/post/PostCreate";
 import PostDetail from "../pages/post/PostDetail";
 import PostEdit from "../pages/post/PostEdit";
+import PostUpload from "../pages/post/PostUpload"
 import UserList from "../pages/user/UserList";
 import UserDetail from "../pages/user/UserDetail";
 import UserCreate from "../pages/user/UserCreate";
@@ -43,6 +44,11 @@ const routes = [
         path: "/post/create",
         name: "post-create",
         component: PostCreate,
+    },
+    {
+        path: "/post/upload",
+        name: "post-upload",
+        component: PostUpload,
     },
     {
         path: "/post/:postId",

@@ -6,6 +6,9 @@
     <v-card-text>
       <div class="pt-5 px-8">
         <p>User ID : {{ $route.params.userId }}</p>
+        <v-row v-if="user.profile">
+          <img :src="user.profile" width="150" height="150" />
+        </v-row>
         <v-row>
           <v-col cols="4"> Name </v-col>
           <v-col>

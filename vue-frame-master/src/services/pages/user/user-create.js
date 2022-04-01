@@ -4,6 +4,7 @@ import { mapGetters } from "vuex";
 export default {
     data() {
         return {
+            src: '',
             name: '',
             email: '',
             phone: '',
@@ -11,6 +12,8 @@ export default {
             type: '',
             address: '',
             profile: '',
+            password:'',
+            confirmPassword:'',
             dialog: false,
             nameRules: [
                 value => !!value || 'Please fill user name!',
@@ -21,6 +24,9 @@ export default {
             ],
             typeRules: [
                 value => !!value || 'Please choose user type!',
+            ],
+            profileRules: [
+                value => !!value || 'Please choose profile image!',
             ],
             addressRules: [
                 value => !!value || 'Please fill address!',
@@ -51,26 +57,33 @@ export default {
     },
     methods: {
         confirm() {
+            let base64String = '';
+            var file = document.querySelector(
+                'input[type=file]')['files'][0];
+            var reader = new FileReader();
+
+            reader.onload = function () {
+                base64String = reader.result.replace("data:", "")
+                    .replace(/^.+,/, "");
+                var str1 = "data:" + file.type + ";base64,"
+                var output = document.getElementById('myProfile');
+                output.setAttribute("src", str1.concat(base64String));
+            }
+            reader.readAsDataURL(file);
             this.dialog = true;
         },
         userCreate() {
-            let formData = new FormData();
-            formData.append("file", this.profile);
-            formData.append("email", this.email);
-            formData.append("password", this.password);
-            this.$axios.post(`http://localhost:8000/api/users`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                  }
-            })
+            var output = document.getElementById('myProfile');
+            this.profile=output.getAttribute('src');
 
-           /*  this.$axios.post(`http://localhost:8000/api/users`, {
+            this.$axios.post(`http://localhost:8000/api/users`, {
                 name: this.name,
                 email: this.email,
                 address: this.address,
                 phone: this.phone,
                 type: this.type,
                 password: this.password,
+                profile: this.profile,
                 dob: Math.floor(new Date(this.dob).getTime() / 1000),
                 created_user_id: this.userId,
                 updated_user_id: this.userId,
@@ -83,7 +96,7 @@ export default {
                 })
                 .catch((err) => {
                     console.log(err);
-                }); */
+                });
         },
 
     }

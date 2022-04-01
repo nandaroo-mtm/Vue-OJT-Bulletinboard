@@ -5,6 +5,24 @@
     </v-card-title>
     <v-form ref="form" v-model="valid" class="mt-5" @submit.prevent="confirm()">
       <v-card-text class="px-10">
+        <v-row v-if="profile">
+          <img :src="profile" width="150" height="150" id="userImage1" />
+          <v-col class="d-flex flex-column">
+            <v-file-input
+              accept="image/*"
+              type="file"
+              label="Profile"
+              id="myProfile"
+              ref="file"
+              style="display:none;"
+              @change="fileSelected()"
+            ></v-file-input>
+            <v-spacer></v-spacer>
+            <v-btn class="ml-5" width="150" @click="fileClick()"
+              >Edit Profile</v-btn
+            >
+          </v-col> </v-row
+        ><br />
         <v-text-field
           label="User Name"
           required
@@ -87,6 +105,7 @@
               </v-card-title>
               <v-card-text>
                 <div class="pt-5 px-8">
+                  <img :src="profile" width="150" height="150" id="userImage2" />
                   <v-row>
                     <v-col cols="6"> Name </v-col>
                     <v-col>
@@ -140,7 +159,7 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-            <v-btn large @click="$router.go(-1)">Back</v-btn>
+          <v-btn large @click="$router.go(-1)">Back</v-btn>
         </div>
       </v-card-actions>
     </v-form>

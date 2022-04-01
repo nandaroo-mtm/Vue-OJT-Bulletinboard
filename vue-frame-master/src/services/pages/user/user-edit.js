@@ -6,6 +6,7 @@ export default {
             email: '',
             phone: '',
             dob: '',
+            profile: '',
             type: '',
             address: '',
             dialog: false,
@@ -58,21 +59,51 @@ export default {
                     month = '0' + month;
                 if (day.length < 2)
                     day = '0' + day;
-                this.name=user.name,
-                this.email=user.email,
-                this.phone=user.phone,
-                this.address=user.address,
-                this.type=user.type,
-                this.dob = [year, month, day].join('-');
+                this.name = user.name,
+                    this.email = user.email,
+                    this.profile = user.profile,
+                    this.phone = user.phone,
+                    this.address = user.address,
+                    this.type = user.type,
+                    this.dob = [year, month, day].join('-');
 
             })
     },
     methods: {
+        fileClick() {
+            let fileUpload = document.getElementById('myProfile')
+            if (fileUpload != null) {
+                fileUpload.click()
+            }
+        },
+        fileSelected() {
+            let base64String = '';
+            var file = document.querySelector(
+                'input[type=file]')['files'][0];
+            var reader = new FileReader();
+            console.log(file)
+            var image1 = document.getElementById('userImage1');
+
+            reader.onload = function () {
+                base64String = reader.result.replace("data:", "")
+                    .replace(/^.+,/, "");
+                var str1 = "data:" + file.type + ";base64,"
+                image1.setAttribute("src", str1.concat(base64String));
+            }
+            
+            reader.readAsDataURL(file);
+            var src=image1.getAttribute('src');
+            this.confirmImg=src;
+        }
+        ,
         confirm() {
+            var image1 = document.getElementById('userImage1');
+            var src=image1.getAttribute('src');
+            this.profile=src;
             this.dialog = true
         },
-        userEdit(){
-            this.$axios.patch(`http://localhost:8000/api/users/${this.$route.params.userId}/edit`,{
+        userEdit() {
+            this.$axios.patch(`http://localhost:8000/api/users/${this.$route.params.userId}/edit`, {
                 name: this.name,
                 email: this.email,
                 address: this.address,
@@ -82,13 +113,13 @@ export default {
                 created_user_id: 1,
                 updated_user_id: this.userId,
             })
-            .then(()=> {
-                //this.$router.push('/user/list')
-                this.$router.go(-1)
-            })
-            .catch((err)=>{
-                console.log(err)
-            })
+                .then(() => {
+                    //this.$router.push('/user/list')
+                    this.$router.go(-1)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
         }
     }
 }

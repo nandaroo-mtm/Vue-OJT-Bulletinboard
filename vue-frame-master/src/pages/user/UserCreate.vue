@@ -66,8 +66,9 @@
         </v-radio-group>
         <v-file-input
           accept="image/*"
+          type="file"
           label="Profile"
-          v-model="profile"
+          :rules="profileRules"
           ref="file"
         ></v-file-input>
         <v-text-field
@@ -107,6 +108,12 @@
               </v-card-title>
               <v-card-text>
                 <div class="pt-5 px-8">
+                  <img
+                    alt="Profile image"
+                    id="myProfile"
+                    width="150"
+                    height="150"
+                  />
                   <v-row>
                     <v-col cols="6"> Name </v-col>
                     <v-col>
