@@ -9,6 +9,7 @@ export default {
             profile: '',
             type: '',
             address: '',
+            image:'',
             dialog: false,
             nameRules: [
                 value => !!value || 'Please fill user name!',
@@ -90,16 +91,16 @@ export default {
                 var str1 = "data:" + file.type + ";base64,"
                 image1.setAttribute("src", str1.concat(base64String));
             }
-            
+
             reader.readAsDataURL(file);
-            var src=image1.getAttribute('src');
-            this.confirmImg=src;
+            var src = image1.getAttribute('src');
+            this.confirmImg = src;
         }
         ,
         confirm() {
             var image1 = document.getElementById('userImage1');
-            var src=image1.getAttribute('src');
-            this.profile=src;
+            var src = image1.getAttribute('src');
+            this.profile = src;
             this.dialog = true
         },
         userEdit() {
@@ -108,13 +109,13 @@ export default {
                 email: this.email,
                 address: this.address,
                 phone: this.phone,
+                profile:this.profile,
                 type: this.type,
                 dob: Math.floor(new Date(this.dob).getTime() / 1000),
                 created_user_id: 1,
                 updated_user_id: this.userId,
             })
                 .then(() => {
-                    //this.$router.push('/user/list')
                     this.$router.go(-1)
                 })
                 .catch((err) => {

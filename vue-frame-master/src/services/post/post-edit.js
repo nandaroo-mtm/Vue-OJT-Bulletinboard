@@ -39,8 +39,7 @@ export default {
                     updated_user_id: this.userId,
                     status: this.status
                 })
-                .then((response) => {
-                    console.log(response)
+                .then(() => {
                     this.$router.push('/post/list');
                 })
                 .catch((err) => {

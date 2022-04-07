@@ -70,7 +70,6 @@ export default {
             .get(`http://localhost:8000/api/users/`)
             .then((response) => {
                 this.userList = response.data;
-
                 var i = 0
                 var unixTime, date;
                 for (i = 0; i < this.userList.length; i++) {
@@ -79,11 +78,12 @@ export default {
                     this.userList[i].dob = date.toLocaleDateString();
                 }
 
-                this.showList = this.userList.filter((user) => {
+                this.userList = this.userList.filter((user) => {
                     return (
                         user.deleted_user_id === null && user.deleted_at === null
                     )
                 });
+                this.showList = this.userList
             })
             .catch((err) => {
                 console.log(err);
@@ -95,13 +95,13 @@ export default {
          * @returns void
          */
         filterUsers() {
-            this.showList = this.showList.filter((user) => {
+            this.showList = this.userList.filter(user=> {
                 return (
                     (user.name.toLowerCase().includes(this.keyword.toLowerCase()) ||
                         user.email.toLowerCase().includes(this.keyword.toLowerCase()) ||
                         user.address.toLowerCase().includes(this.keyword.toLowerCase())) &&
                     user.deleted_user_id === null && user.deleted_at === null
-                );
+                )
             });
         },
         deleteUser(id) {

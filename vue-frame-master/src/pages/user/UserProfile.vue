@@ -13,6 +13,10 @@
             {{ userId }}
           </v-col>
         </v-row>
+        <v-row v-if="profile">
+          <img :src="profile" width="150" height="150" id="userImage1" />
+          </v-row
+        >
         <v-row>
           <v-col cols="6"> Name </v-col>
           <v-col>

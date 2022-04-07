@@ -13,8 +13,7 @@ import UserCreate from "../pages/user/UserCreate";
 import UserEdit from "../pages/user/UserEdit";
 import UserProfile from "../pages/user/UserProfile"
 import Password from "../pages/user/Password"
-import store from "../store";/* 
-import {mapGetters} from 'vuex'; */
+import store from "../store";
 
 Vue.use(VueRouter);
 
@@ -69,6 +68,14 @@ const routes = [
         path: "/user/create",
         name: "user-create",
         component: UserCreate,
+        beforeEnter: (to, from, next) => {
+            const userType = store.getters.userType;
+            if (userType != 0) {
+                alert('You are not authorized!')
+                return next(from.fullPath)
+            }
+            next();
+        }
     },
     {
         path: "/user/profile",
@@ -89,6 +96,15 @@ const routes = [
         path: "/user/:userId/edit",
         name: "user-edit",
         component: UserEdit,
+        beforeEnter: (to, from, next) => {
+            const userType = store.getters.userType;
+            if (userType == 0 || from.name === 'user-profile') {
+                next();
+            } else {
+                alert('You are not authorized!')
+                return next(from.fullPath)
+            }
+        }
     },
 ];
 
@@ -102,7 +118,7 @@ const router = new VueRouter({
  */
 router.beforeEach((to, from, next) => {
     const loggedIn = store.getters.isLoggedIn;
-    if (!loggedIn && to.name != "login") {
+    if (!loggedIn && to.name != "login" && to.name != "post-list" && to.name != "post-detail") {
         return next("/login");
     }
     next();

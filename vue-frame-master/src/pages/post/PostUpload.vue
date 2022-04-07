@@ -8,7 +8,7 @@
       ref="form"
       v-model="valid"
       class="mt-5"
-      @submit.prevent=""
+      @submit.prevent="uploadCsv()"
     >
       <v-card-text class="px-10">
         <v-file-input
@@ -26,6 +26,7 @@
             ref="file"
             large
             class="primary white--text"
+            :disabled="!valid"
             >Upload</v-btn>
           <v-btn large @click="$router.go(-1)">Back</v-btn>
         </div>
@@ -34,7 +35,7 @@
   </v-card>
 </template>
 
-<script >/* src="../../services/pages/user/password.js" */
+<script src="../../services/post/post-upload.js">
 </script>
 
 <style scoped src="../../assets/css/pages/post/post-create.css">

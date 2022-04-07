@@ -22,8 +22,8 @@ export default {
                     value: "description",
                 },
                 {
-                    text: "Posted User",
-                    value: "created_user",
+                    text: "Posted User Id",
+                    value: "created_user_id",
                 },
                 {
                     text: "Operation",
@@ -46,14 +46,15 @@ export default {
     },
     created() {
         this.$axios
-            .get("/posts")
+            .get("http://localhost:8000/api/posts")
             .then((response) => {
                 this.postList = response.data;
-                this.showList = this.postList.filter((post) => {
+                this.postList = this.postList.filter((post) => {
                     return (
                         post.deleted_user_id === null && post.deleted_at === null
                     )
                 })
+                this.showList = this.postList
             })
             .catch((err) => {
                 console.log(err);
@@ -68,7 +69,7 @@ export default {
             this.showList = this.postList.filter((post) => {
                 return (
                     post.title.toLowerCase().includes(this.keyword.toLowerCase()) ||
-                    post.description.includes(this.keyword.toLowerCase())
+                    post.description.toLowerCase().includes(this.keyword.toLowerCase())
                 );
             });
         },
@@ -89,6 +90,27 @@ export default {
 
             }
 
+        },
+        downloadCsvFile() {
+            var csv = 'title,description\n';
+            var arr = []
+
+            this.postList.forEach(function (row) {
+                arr.push([
+                    row.title, row.description
+                ])
+            });
+
+            arr.forEach(function (row) {
+                csv += row.join(',');
+                csv += "\n";
+            });
+            
+            var hiddenElement = document.createElement('a');
+            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+            hiddenElement.target = '_blank';
+            hiddenElement.download = 'postsList.csv';
+            hiddenElement.click();
         }
     },
 };

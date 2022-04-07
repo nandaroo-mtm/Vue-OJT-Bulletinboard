@@ -19,7 +19,7 @@ export default {
             this.$store
                 .dispatch("logout")
                 .then(() => {
-                    this.$router.push({ name: "login" });
+                    this.$router.push({ name: "post-list" });
                 })
                 .catch((err) => {
                     console.log(err);

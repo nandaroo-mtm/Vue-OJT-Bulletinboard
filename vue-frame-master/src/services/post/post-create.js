@@ -6,8 +6,6 @@ export default {
             valid: true,
             description: '',
             dialog: false,
-            userId: '',
-            userRole: '',
             titleRules: [
                 value => !!value || "The title field is required.",
                 value => value.length <= 50 || "The title field may not be greater than 50 characters!"
@@ -16,11 +14,6 @@ export default {
                 value => !!value || "The description field is required."
             ],
         }
-    },
-    mounted() {
-        this.userId = this.$store.getters.userId;
-        this.uesrRole = this.$store.getters.userRole;
-
     },
     computed: {
         ...mapGetters(["isLoggedIn", "userType", "userId"]),

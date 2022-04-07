@@ -27,7 +27,7 @@
             <v-btn class="post-list-btn mr-4 mt-5" color="primary">Upload</v-btn>
           </router-link>
 
-          <v-btn class="post-list-btn mr-4" color="primary">Download</v-btn>
+          <v-btn class="post-list-btn mr-4" color="primary" @click="downloadCsvFile()">Download</v-btn>
         </v-row>
       </v-form>
     </v-card-title>
@@ -39,7 +39,7 @@
             ><a v-if="item.title">{{ item.title }}</a></router-link
           >
         </template>
-        <template v-slot:[`item.operation`]="{ item }">
+        <template v-slot:[`item.operation`]="{ item }" v-if="isLoggedIn">
           <v-row>
             <div class="operation-btn">
               <router-link

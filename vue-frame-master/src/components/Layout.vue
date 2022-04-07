@@ -11,7 +11,7 @@
                     </div>
                     <v-spacer></v-spacer>
                     <div class="route-links">
-                        <router-link class="route-link" :to="{ name: 'post-list' }" v-if="isLoggedIn">Posts</router-link>
+                        <router-link class="route-link" :to="{ name: 'post-list' }" >Posts</router-link>
                         <router-link class="route-link" :to="{ name: 'user-list' }" v-if="isLoggedIn">Users</router-link>
                         <v-menu offset-y v-if="isLoggedIn">
                             <template v-slot:activator="{ on }">

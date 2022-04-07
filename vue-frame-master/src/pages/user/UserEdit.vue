@@ -5,7 +5,7 @@
     </v-card-title>
     <v-form ref="form" v-model="valid" class="mt-5" @submit.prevent="confirm()">
       <v-card-text class="px-10">
-        <v-row v-if="profile">
+        <v-row ><!-- v-if="profile" -->
           <img :src="profile" width="150" height="150" id="userImage1" />
           <v-col class="d-flex flex-column">
             <v-file-input

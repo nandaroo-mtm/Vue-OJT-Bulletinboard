@@ -5,43 +5,55 @@
     </v-card-title>
     <v-card-text>
       <div class="pt-5 px-8">
-        <p>User ID : {{ $route.params.userId }}</p>
-        <v-row v-if="user.profile">
+         <v-row v-if="user.profile" justify="center">
           <img :src="user.profile" width="150" height="150" />
-        </v-row>
+        </v-row><br>
         <v-row>
-          <v-col cols="4"> Name </v-col>
-          <v-col>
+          <v-spacer></v-spacer>
+          <v-col cols="5">User ID</v-col>
+          <v-col cols="5">
+            {{ $route.params.userId }}
+          </v-col>
+        </v-row>       
+        <v-row>
+          <v-spacer></v-spacer>
+          <v-col cols="5"> Name </v-col>
+          <v-col cols="5">
             {{ user.name }}
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="4"> Email </v-col>
-          <v-col>
+          <v-spacer></v-spacer>
+          <v-col cols="5"> Email </v-col>
+          <v-col cols="5">
             {{ user.email }}
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="4"> Phone No </v-col>
-          <v-col>
+          <v-spacer></v-spacer>
+          <v-col cols="5"> Phone No </v-col>
+          <v-col cols="5">
             {{ user.phone }}
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="4"> Address </v-col>
-          <v-col>
+          <v-spacer></v-spacer>
+          <v-col cols="5"> Address </v-col>
+          <v-col cols="5">
             {{ user.address }}
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="4"> Date of Birth </v-col>
-          <v-col>
+          <v-spacer></v-spacer>
+          <v-col cols="5"> Date of Birth </v-col>
+          <v-col cols="5">
             {{ user.dob }}
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="4"> Account Type </v-col>
-          <v-col>
+          <v-spacer></v-spacer>
+          <v-col cols="5"> Account Type </v-col>
+          <v-col cols="5">
             <span v-if="user.type == 0">Admin</span>
             <span v-else-if="user.type == 1">User</span>
           </v-col>
