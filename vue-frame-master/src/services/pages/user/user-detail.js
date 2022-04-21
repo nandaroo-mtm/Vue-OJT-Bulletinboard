@@ -11,7 +11,6 @@ export default {
                 var unixTime = this.user.dob;
                 var date = new Date(unixTime);
                 this.user.dob = date.toLocaleDateString();
-                console.log(response.data)
             })
     }
 }
