@@ -52,7 +52,7 @@ export default {
         this.$axios.get(`http://localhost:8000/api/users/${this.$route.params.userId}/show`)
             .then((response) => {
                 var user = response.data;
-                var d = new Date(user.dob * 1000)
+                var d = new Date(user.dob)
                 var month = '' + (d.getMonth() + 1),
                     day = '' + d.getDate(),
                     year = d.getFullYear();
@@ -61,12 +61,12 @@ export default {
                 if (day.length < 2)
                     day = '0' + day;
                 this.name = user.name,
-                    this.email = user.email,
-                    this.profile = user.profile,
-                    this.phone = user.phone,
-                    this.address = user.address,
-                    this.type = user.type,
-                    this.dob = [year, month, day].join('-');
+                this.email = user.email,
+                this.profile = user.profile,
+                this.phone = user.phone,
+                this.address = user.address,
+                this.type = user.type,
+                this.dob = [year, month, day].join('-');
 
             })
     },
@@ -111,7 +111,7 @@ export default {
                 phone: this.phone,
                 profile:this.profile,
                 type: this.type,
-                dob: Math.floor(new Date(this.dob).getTime() / 1000),
+                dob: Math.floor(new Date(this.dob).getTime()),
                 created_user_id: 1,
                 updated_user_id: this.userId,
             })

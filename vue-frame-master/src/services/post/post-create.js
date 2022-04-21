@@ -40,6 +40,10 @@ export default {
                     console.log(err);
                 });
 
+        },
+        clear() {
+            this.title = ''
+            this.description = ''
         }
     }
 

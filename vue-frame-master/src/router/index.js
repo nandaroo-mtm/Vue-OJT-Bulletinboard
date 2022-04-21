@@ -4,7 +4,6 @@ import VueRouter from "vue-router";
 import Login from "../pages/user/Login";
 import PostList from "../pages/post/PostList";
 import PostCreate from "../pages/post/PostCreate";
-import PostDetail from "../pages/post/PostDetail";
 import PostEdit from "../pages/post/PostEdit";
 import PostUpload from "../pages/post/PostUpload"
 import UserList from "../pages/user/UserList";
@@ -48,11 +47,6 @@ const routes = [
         path: "/post/upload",
         name: "post-upload",
         component: PostUpload,
-    },
-    {
-        path: "/post/:postId",
-        name: "post-detail",
-        component: PostDetail,
     },
     {
         path: "/post/:postId/edit",
@@ -118,7 +112,7 @@ const router = new VueRouter({
  */
 router.beforeEach((to, from, next) => {
     const loggedIn = store.getters.isLoggedIn;
-    if (!loggedIn && to.name != "login" && to.name != "post-list" && to.name != "post-detail") {
+    if (!loggedIn && to.name != "login" && to.name != "post-list" ) {
         return next("/login");
     }
     next();

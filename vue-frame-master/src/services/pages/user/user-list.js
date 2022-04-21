@@ -35,7 +35,7 @@ export default {
                 },
                 {
                     text: "Created User",
-                    value: "created_user_id",
+                    value: "created_user",
                 }/* ,
                 {
                     text: "Operation",
@@ -72,10 +72,14 @@ export default {
                 this.userList = response.data;
                 var i = 0
                 var unixTime, date;
+                var adminList = [];
                 for (i = 0; i < this.userList.length; i++) {
                     unixTime = this.userList[i].dob;
-                    date = new Date(unixTime * 1000);
+                    date = new Date(unixTime);
                     this.userList[i].dob = date.toLocaleDateString();
+                    if (this.userList[i].type == 0) {
+                        adminList.push(this.userList[i])
+                    }
                 }
 
                 this.userList = this.userList.filter((user) => {
@@ -83,7 +87,15 @@ export default {
                         user.deleted_user_id === null && user.deleted_at === null
                     )
                 });
+                var j;
                 this.showList = this.userList
+                for (i = 0; i < this.showList.length; i++) {
+                    for (j = 0; j < adminList.length; j++) {
+                        if(this.showList[i].created_user_id === adminList[j].id) {
+                            this.showList[i].created_user = adminList[j].name
+                        }
+                    }
+                }
             })
             .catch((err) => {
                 console.log(err);
@@ -95,7 +107,7 @@ export default {
          * @returns void
          */
         filterUsers() {
-            this.showList = this.userList.filter(user=> {
+            this.showList = this.userList.filter(user => {
                 return (
                     (user.name.toLowerCase().includes(this.keyword.toLowerCase()) ||
                         user.email.toLowerCase().includes(this.keyword.toLowerCase()) ||

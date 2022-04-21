@@ -17,3 +17,9 @@
 .detail-row {
   height: 30px;
 }
+
+.v-data-table-header th {
+  /* white-space: nowrap; */
+  vertical-align: middle;
+  text-align: center;
+}

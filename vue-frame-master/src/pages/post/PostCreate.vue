@@ -53,7 +53,7 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <v-btn type="reset" large>Clear</v-btn>
+          <v-btn type="reset" large @click="clear()">Clear</v-btn>
         </div>
       </v-card-actions>
     </v-form>

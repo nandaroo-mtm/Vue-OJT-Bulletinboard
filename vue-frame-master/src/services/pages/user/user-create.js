@@ -73,7 +73,7 @@ export default {
             this.dialog = true;
         },
         userCreate() {
-            var output = document.getElementById('myProfile');
+            var output  =document.getElementById('myProfile');
             this.profile=output.getAttribute('src');
 
             this.$axios.post(`http://localhost:8000/api/users`, {
@@ -84,7 +84,7 @@ export default {
                 type: this.type,
                 password: this.password,
                 profile: this.profile,
-                dob: Math.floor(new Date(this.dob).getTime() / 1000),
+                dob: Math.floor(new Date(this.dob).getTime()),
                 created_user_id: this.userId,
                 updated_user_id: this.userId,
                 deleted_user_id: null,

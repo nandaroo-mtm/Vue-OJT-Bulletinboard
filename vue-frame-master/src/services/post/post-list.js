@@ -5,16 +5,18 @@ export default {
             keyword: '',
             postInfo: null,
             dialogTitle: "",
-            dialog: false,
+            dialog: [],
             isDeleteDialog: false,
             headerList: [
                 {
                     text: "ID",
                     align: "start",
+                    width:"10%",
                     value: "id",
                 },
                 {
                     text: "Post Title",
+                    width:"10%",                   
                     value: "title",
                 },
                 {
@@ -22,8 +24,9 @@ export default {
                     value: "description",
                 },
                 {
-                    text: "Posted User Id",
-                    value: "created_user_id",
+                    text: "Posted User",
+                    value: "created_user",
+                    width:"15%",
                 },
                 {
                     text: "Operation",
@@ -32,6 +35,7 @@ export default {
             ],
             postList: [],
             showList: [],
+            userList: [],
         };
     },
     computed: {
@@ -55,6 +59,23 @@ export default {
                     )
                 })
                 this.showList = this.postList
+
+                this.$axios
+                    .get(`http://localhost:8000/api/users/`)
+                    .then((response) => {
+                        this.userList = response.data
+                        for (var i = 0; i < this.showList.length; i++) {
+                            var date = new Date(this.showList[i].created_at);
+                            this.showList[i].created_at = date.toLocaleDateString();
+                            for (var j = 0; j < this.userList.length; j++) {
+                                if (this.showList[i].created_user_id === this.userList[j].id) {
+                                    this.showList[i].created_user = this.userList[j].name;
+                                    break;
+                                }
+                            }
+                        }
+                    });
+
             })
             .catch((err) => {
                 console.log(err);
@@ -80,14 +101,12 @@ export default {
                         "deleted_user_id": this.userId,
                         "deleted_at": new Date().getTime(),
                     })
-                    .then((response) => {
-                        console.log(response)
-                        this.$router.go()
+                    .then(() => {
+                        this.$router.go(0)
                     })
                     .catch((err) => {
                         console.log(err);
                     });
-
             }
 
         },
@@ -105,12 +124,18 @@ export default {
                 csv += row.join(',');
                 csv += "\n";
             });
-            
+
             var hiddenElement = document.createElement('a');
             hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
             hiddenElement.target = '_blank';
             hiddenElement.download = 'postsList.csv';
             hiddenElement.click();
+        },
+        openDialog(id){
+            this.$set(this.dialog, id, true);
+        },
+        closeDialog(id){
+            this.$set(this.dialog, id, false);
         }
     },
 };
