@@ -112,7 +112,7 @@ const router = new VueRouter({
  */
 router.beforeEach((to, from, next) => {
     const loggedIn = store.getters.isLoggedIn;
-    if (!loggedIn && to.name != "login" && to.name != "post-list" ) {
+    if (!loggedIn && to.name != "login" && to.name != "post-list") {
         return next("/login");
     }
     next();

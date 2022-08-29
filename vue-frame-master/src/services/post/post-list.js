@@ -113,7 +113,7 @@ export default {
         downloadCsvFile() {
             var csv = 'title,description\n';
             var arr = []
-
+            
             this.postList.forEach(function (row) {
                 arr.push([
                     row.title, row.description

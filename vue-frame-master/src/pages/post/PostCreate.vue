@@ -32,7 +32,7 @@
                 <span class="text-h5">Creat Post Comfirmation</span>
               </v-card-title>
               <v-card-text class="mt-5">
-                <h5 class="h5">Post Title</h5>
+                <h5 class="h5">Post Title Edited commit revert example</h5>
                 <p class="h5-text">{{ title }}</p>
                 <h5 class="h5">Post Description</h5>
                 <p class="h5-text">{{ description }}</p>
